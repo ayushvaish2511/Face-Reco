@@ -10,13 +10,13 @@ function start() {
     document.body.append('Models Loaded')
     
     navigator.getUserMedia(
-        {video:{}},
+        { video:{} },
         stream => video.srcObject = stream,
         err => console.error(err)
     )
     
-    
     //video.src = '../videos/speech.mp4'
+    console.log('video added')
     recognizeFaces()
 }
 
@@ -61,13 +61,12 @@ async function recognizeFaces() {
 
 
 function loadLabeledImages() {
-    // const labels = ['Black Widow', 'Captain America', 'Hawkeye' , 'Jim Rhodes', 'Tony Stark', 'Thor', 'Captain Marvel']
-    const labels = ['Ayush']
- 
+    //const labels = ['Black Widow', 'Captain America', 'Hawkeye' , 'Jim Rhodes', 'Tony Stark', 'Thor', 'Captain Marvel']
+    const labels = ['Prashant Kumar'] // for WebCam
     return Promise.all(
         labels.map(async (label)=>{
             const descriptions = []
-            for(let i=1; i<=3; i++) {
+            for(let i=1; i<=2; i++) {
                 const img = await faceapi.fetchImage(`../labeled_images/${label}/${i}.jpg`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 console.log(label + i + JSON.stringify(detections))
